@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Landing page turística de Madrid: qué ver, cómo moverse y lugares imprescindibles." />
+  <title>Madrid, tu próximo destino</title>
+  <style>
+	:root {
+	  --bg: #0f172a;
+	  --bg-soft: #111827;
+	  --surface: rgba(255, 255, 255, 0.08);
+	  --surface-strong: rgba(255, 255, 255, 0.14);
+	  --text: #e5e7eb;
+	  --muted: #cbd5e1;
+	  --brand: #ef4444;
+	  --brand-2: #f59e0b;
+	  --accent: #38bdf8;
+	  --card: #ffffff;
+	  --card-text: #0f172a;
+	  --shadow: 0 20px 50px rgba(2, 6, 23, 0.35);
+	  --radius: 24px;
+	  --max-width: 1120px;
+	  --header-height: 76px;
+	}
+
+	* { box-sizing: border-box; }
+
+	html { scroll-behavior: smooth; }
+
+	body {
+	  margin: 0;
+	  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+	  color: var(--text);
+	  background:
+		radial-gradient(circle at top left, rgba(239, 68, 68, 0.18), transparent 30%),
+		radial-gradient(circle at top right, rgba(56, 189, 248, 0.12), transparent 25%),
+		linear-gradient(180deg, #0b1020 0%, #111827 55%, #0f172a 100%);
+	  line-height: 1.6;
+	  overflow-x: hidden;
+	}
+
+	img { display: block; max-width: 100%; }
+	a { color: inherit; text-decoration: none; }
+
+	.container {
+	  width: min(100% - 2rem, var(--max-width));
+	  margin-inline: auto;
+	}
+
+	.skip-link {
+	  position: absolute;
+	  left: -999px;
+	  top: 1rem;
+	  z-index: 2000;
+	  background: #fff;
+	  color: #000;
+	  padding: 0.75rem 1rem;
+	  border-radius: 999px;
+	}
+
+	.skip-link:focus { left: 1rem; }
+
+	.site-header {
+	  position: sticky;
+	  top: 0;
+	  z-index: 1000;
+	  height: var(--header-height);
+	  backdrop-filter: blur(18px);
+	  background: rgba(15, 23, 42, 0.72);
+	  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+	}
+
+	.header-inner {
+	  height: 100%;
+	  display: flex;
+	  align-items: center;
+	  justify-content: space-between;
+	  gap: 1rem;
+	}
+
+	.brand {
+	  display: inline-flex;
+	  align-items: center;
+	  gap: 0.75rem;
+	  font-weight: 800;
+	  letter-spacing: 0.02em;
+	}
+
+	.brand-mark {
+	  width: 42px;
+	  height: 42px;
+	  border-radius: 14px;
+	  background: linear-gradient(135deg, var(--brand) 0%, var(--brand-2) 100%);
+	  box-shadow: 0 10px 24px rgba(239, 68, 68, 0.35);
+	  display: grid;
+	  place-items: center;
+	  color: white;
+	  font-size: 1.1rem;
+	}
+
+	.nav {
+	  display: flex;
+	  align-items: center;
+	  gap: 1rem;
+	  flex-wrap: wrap;
+	  justify-content: flex-end;
+	}
+
+	.nav a {
+	  font-weight: 600;
+	  color: var(--muted);
+	  padding: 0.55rem 0.85rem;
+	  border-radius: 999px;
+	  transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+	}
+
+	.nav a:hover,
+	.nav a:focus-visible {
+	  color: white;
+	  background: rgba(255, 255, 255, 0.1);
+	  transform: translateY(-1px);
+	  outline: none;
+	}
+
+	.hero {
+	  min-height: calc(100vh - var(--header-height));
+	  display: grid;
+	  align-items: center;
+	  position: relative;
+	  isolation: isolate;
+	  background:
+		linear-gradient(180deg, rgba(15, 23, 42, 0.3), rgba(15, 23, 42, 0.85)),
+		url('https://images.unsplash.com/photo-1549144511-f099e773c147?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+	}
+
+	.hero::after {
+	  content: "";
+	  position: absolute;
+	  inset: 0;
+	  background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.2));
+	  z-index: -1;
+	}
+
+	.hero-content {
+	  padding: 5rem 0;
+	  max-width: 700px;
+	}
+
+	.eyebrow {
+	  display: inline-flex;
+	  align-items: center;
+	  gap: 0.55rem;
+	  background: rgba(255, 255, 255, 0.1);
+	  border: 1px solid rgba(255, 255, 255, 0.14);
+	  color: white;
+	  padding: 0.5rem 0.9rem;
+	  border-radius: 999px;
+	  font-size: 0.92rem;
+	  margin-bottom: 1.25rem;
+	  backdrop-filter: blur(10px);
+	}
+
+	h1, h2, h3, p { margin-top: 0; }
+
+	h1 {
+	  font-size: clamp(2.8rem, 8vw, 5.6rem);
+	  line-height: 0.95;
+	  margin-bottom: 1rem;
+	  letter-spacing: -0.04em;
+	}
+
+	.hero p {
+	  font-size: clamp(1.05rem, 2.4vw, 1.25rem);
+	  max-width: 60ch;
+	  color: #e2e8f0;
+	  margin-bottom: 1.8rem;
+	}
+
+	.hero-actions {
+	  display: flex;
+	  flex-wrap: wrap;
+	  gap: 0.9rem;
+	}
+
+	.btn {
+	  display: inline-flex;
+	  align-items: center;
+	  justify-content: center;
+	  gap: 0.5rem;
+	  border: 0;
+	  border-radius: 999px;
+	  padding: 0.95rem 1.35rem;
+	  font-weight: 700;
+	  cursor: pointer;
+	  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+	}
+
+	.btn-primary {
+	  background: linear-gradient(135deg, var(--brand) 0%, var(--brand-2) 100%);
+	  color: white;
+	  box-shadow: 0 14px 30px rgba(239, 68, 68, 0.3);
+	}
+
+	.btn-secondary {
+	  background: rgba(255, 255, 255, 0.12);
+	  color: white;
+	  border: 1px solid rgba(255, 255, 255, 0.18);
+	  backdrop-filter: blur(10px);
+	}
+
+	.btn:hover,
+	.btn:focus-visible {
+	  transform: translateY(-2px);
+	  outline: none;
+	}
+
+	.section { padding: 4.5rem 0; }
+
+	.section-header {
+	  display: grid;
+	  gap: 0.8rem;
+	  margin-bottom: 2rem;
+	}
+
+	.section-header h2 {
+	  font-size: clamp(1.9rem, 5vw, 3rem);
+	  letter-spacing: -0.03em;
+	  margin-bottom: 0;
+	}
+
+	.section-header p {
+	  color: var(--muted);
+	  max-width: 68ch;
+	  margin-bottom: 0;
+	}
+
+	.turismo-grid {
+	  display: grid;
+	  grid-template-columns: 1fr;
+	  gap: 1.25rem;
+	}
+
+	.card {
+	  overflow: hidden;
+	  border-radius: var(--radius);
+	  background: rgba(255, 255, 255, 0.92);
+	  color: var(--card-text);
+	  box-shadow: var(--shadow);
+	  border: 1px solid rgba(255, 255, 255, 0.45);
+	  transition: transform 0.3s ease, box-shadow 0.3s ease;
+	}
+
+	.card:hover {
+	  transform: translateY(-6px);
+	  box-shadow: 0 24px 60px rgba(2, 6, 23, 0.4);
+	}
+
+	.card img {
+	  width: 100%;
+	  height: 240px;
+	  object-fit: cover;
+	}
+
+	.card-body { padding: 1.25rem; }
+
+	.card-body h3 {
+	  font-size: 1.35rem;
+	  margin-bottom: 0.65rem;
+	}
+
+	.card-body p {
+	  color: #334155;
+	  margin-bottom: 0;
+	}
+
+	.transport-wrap {
+	  display: grid;
+	  gap: 1.25rem;
+	}
+
+	.transport-panel,
+	.info-panel {
+	  border-radius: var(--radius);
+	  background: rgba(255, 255, 255, 0.06);
+	  border: 1px solid rgba(255, 255, 255, 0.1);
+	  box-shadow: var(--shadow);
+	  padding: 1.35rem;
+	}
+
+	.transport-list {
+	  display: grid;
+	  gap: 1rem;
+	  padding: 0;
+	  margin: 1.25rem 0 0;
+	  list-style: none;
+	}
+
+	.transport-list li {
+	  display: grid;
+	  grid-template-columns: auto 1fr;
+	  gap: 0.9rem;
+	  align-items: start;
+	  padding: 1rem;
+	  border-radius: 18px;
+	  background: rgba(255, 255, 255, 0.06);
+	  border: 1px solid rgba(255, 255, 255, 0.08);
+	}
+
+	.transport-icon {
+	  width: 44px;
+	  height: 44px;
+	  border-radius: 14px;
+	  display: grid;
+	  place-items: center;
+	  font-size: 1.2rem;
+	  background: linear-gradient(135deg, rgba(239, 68, 68, 0.95), rgba(245, 158, 11, 0.95));
+	  box-shadow: 0 12px 22px rgba(239, 68, 68, 0.24);
+	}
+
+	.link-list {
+	  display: grid;
+	  gap: 0.85rem;
+	  margin: 1.25rem 0 0;
+	}
+
+	.official-link {
+	  display: inline-flex;
+	  align-items: center;
+	  justify-content: space-between;
+	  gap: 0.75rem;
+	  width: 100%;
+	  padding: 1rem 1.1rem;
+	  border-radius: 18px;
+	  background: rgba(255, 255, 255, 0.08);
+	  border: 1px solid rgba(255, 255, 255, 0.12);
+	  transition: transform 0.25s ease, background-color 0.25s ease;
+	  font-weight: 700;
+	}
+
+	.official-link:hover,
+	.official-link:focus-visible {
+	  transform: translateY(-2px);
+	  background: rgba(255, 255, 255, 0.14);
+	  outline: none;
+	}
+
+	.official-link span:last-child { color: var(--brand-2); }
+
+	.footer {
+	  padding: 2rem 0;
+	  border-top: 1px solid rgba(255, 255, 255, 0.08);
+	  background: rgba(2, 6, 23, 0.55);
+	  text-align: center;
+	  color: var(--muted);
+	}
+
+	.footer-identity {
+	  display: inline-flex;
+	  flex-direction: column;
+	  align-items: center;
+	  gap: 0.85rem;
+	  margin-bottom: 1rem;
+	}
+
+	.footer-logo {
+	  width: 100%;
+	  height: auto;
+	  object-fit: contain;
+	  filter: drop-shadow(0 10px 24px rgba(2, 6, 23, 0.35));
+	  border-radius: 18px;
+	  padding: 0.75rem;
+	}
+
+	.footer strong { color: white; }
+
+	@media (min-width: 720px) {
+	  .turismo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+	  .transport-wrap { grid-template-columns: 1.15fr 0.85fr; align-items: start; }
+	}
+
+	@media (min-width: 980px) {
+	  .turismo-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+	  .hero-content { padding-block: 7rem; }
+	  .transport-panel,
+	  .info-panel { padding: 1.6rem; }
+	}
+
+	@media (max-width: 720px) {
+	  .header-inner {
+		align-items: flex-start;
+		padding-block: 0.7rem;
+		height: auto;
+	  }
+
+	  .site-header { height: auto; }
+
+	  .nav { gap: 0.45rem; }
+
+	  .nav a { padding: 0.45rem 0.7rem; font-size: 0.92rem; }
+
+	  .hero-content { padding: 4rem 0 3.5rem; }
+	}
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#inicio">Saltar al contenido</a>
+
+  <header class="site-header">
+	<div class="container header-inner">
+	  <a class="brand" href="#inicio" aria-label="Madrid, inicio">
+		<span class="brand-mark">M</span>
+		<span>Madrid Travel</span>
+	  </a>
+
+	  <nav class="nav" aria-label="Navegación principal">
+		<a href="#inicio">Inicio</a>
+		<a href="#turismo">Qué ver</a>
+		<a href="#transporte">Transporte</a>
+		<a href="#footer">Contacto</a>
+	  </nav>
+	</div>
+  </header>
+
+  <main>
+	<section id="inicio" class="hero" aria-labelledby="hero-title">
+	  <div class="container hero-content">
+		<span class="eyebrow">✨ Vive la esencia de la capital española</span>
+		<h1 id="hero-title">Madrid te espera con arte, historia y energía inolvidable.</h1>
+		<p>
+		  Descubre una ciudad vibrante donde cada paseo combina arquitectura monumental,
+		  gastronomía auténtica, museos de referencia mundial y planes para todos los gustos.
+		</p>
+		<div class="hero-actions">
+		  <a class="btn btn-primary" href="#turismo">Descubrir lugares</a>
+		  <a class="btn btn-secondary" href="#transporte">Cómo moverse</a>
+		</div>
+	  </div>
+	</section>
+
+	<section id="turismo" class="section" aria-labelledby="turismo-title">
+	  <div class="container">
+		<div class="section-header">
+		  <h2 id="turismo-title">Qué ver en Madrid</h2>
+		  <p>
+			Una selección de lugares emblemáticos para empezar tu viaje con lo más representativo
+			de la ciudad: plazas históricas, parques icónicos y museos imprescindibles.
+		  </p>
+		</div>
+
+		<div class="turismo-grid">
+		  <article class="card">
+			<img src="https://images.unsplash.com/photo-1736152692577-59391336822f?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Puerta del Sol en Madrid" />
+			<div class="card-body">
+			  <h3>Puerta del Sol</h3>
+			  <p>
+				El corazón de Madrid y uno de sus puntos más icónicos. Ideal para comenzar rutas
+				urbanas, sentir el pulso de la ciudad y fotografiar sus espacios más reconocibles.
+			  </p>
+			</div>
+		  </article>
+
+		  <article class="card">
+			<img src="https://images.unsplash.com/photo-1708205750515-afdbd5378c13?q=80&w=1469&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Parque del Retiro en Madrid" />
+			<div class="card-body">
+			  <h3>Parque del Retiro</h3>
+			  <p>
+				Un oasis verde perfecto para pasear, remar en su estanque y desconectar entre
+				jardines, esculturas y rincones históricos en pleno centro de Madrid.
+			  </p>
+			</div>
+		  </article>
+
+		  <article class="card">
+			<img src="https://images.unsplash.com/photo-1554907984-15263bfd63bd?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Museo del Prado en Madrid" />
+			<div class="card-body">
+			  <h3>Museo del Prado</h3>
+			  <p>
+				Una visita imprescindible para amantes del arte. Reúne una de las colecciones más
+				importantes del mundo y una experiencia cultural de primer nivel.
+			  </p>
+			</div>
+		  </article>
+		</div>
+	  </div>
+	</section>
+
+	<section id="transporte" class="section" aria-labelledby="transporte-title">
+	  <div class="container transport-wrap">
+		<div class="transport-panel">
+		  <div class="section-header">
+			<h2 id="transporte-title">Cómo moverse por Madrid</h2>
+			<p>
+			  La ciudad cuenta con una red de transporte cómoda, rápida y bien conectada. Metro,
+			  autobuses y cercanías permiten recorrer Madrid de forma sencilla.
+			</p>
+		  </div>
+
+		  <ul class="transport-list">
+			<li>
+			  <div class="transport-icon">🚇</div>
+			  <div>
+				<strong>Metro de Madrid</strong>
+				<p>
+				  Es la forma más rápida de cruzar la ciudad. Muy útil para llegar a zonas turísticas,
+				  estaciones de tren y barrios clave sin depender del tráfico.
+				</p>
+			  </div>
+			</li>
+			<li>
+			  <div class="transport-icon">🚌</div>
+			  <div>
+				<strong>EMT Madrid</strong>
+				<p>
+				  La red de autobuses urbanos amplía la cobertura del metro y conecta áreas residenciales,
+				  céntricas y puntos de interés con frecuencia muy elevada.
+				</p>
+			  </div>
+			</li>
+			<li>
+			  <div class="transport-icon">🚶</div>
+			  <div>
+				<strong>A pie y con calma</strong>
+				<p>
+				  Muchas zonas del centro son perfectas para caminar. Descubrir Madrid andando permite
+				  disfrutar mejor de plazas, terrazas, comercios y ambiente local.
+				</p>
+			  </div>
+			</li>
+		  </ul>
+		</div>
+
+		<aside class="info-panel" aria-label="Enlaces oficiales de transporte">
+		  <div class="section-header">
+			<h3>Enlaces oficiales</h3>
+			<p>Consulta información actualizada sobre rutas, tarifas y horarios en los portales oficiales.</p>
+		  </div>
+
+		  <div class="link-list">
+			<a class="official-link" href="https://www.metromadrid.es/" target="_blank" rel="noopener noreferrer">
+			  <span>Web oficial Metro de Madrid</span>
+			  <span>↗</span>
+			</a>
+			<a class="official-link" href="https://www.emtmadrid.es/" target="_blank" rel="noopener noreferrer">
+			  <span>Web oficial EMT Madrid</span>
+			  <span>↗</span>
+			</a>
+		  </div>
+		</aside>
+	  </div>
+	</section>
+  </main>
+
+  <footer id="footer" class="footer">
+	<div class="container">
+	  <p><strong>Desarrollado por Jesús LJ</strong></p>
+	  <p>Una landing page moderna y responsive para inspirar tu próxima escapada a Madrid.</p>
+
+    <div class="footer-identity" aria-label="Autoría y entidad de la actividad">
+	    <img
+	      class="footer-logo"
+	      src="https://upload.wikimedia.org/wikipedia/commons/1/18/Logotipo_del_Instituto_Nacional_de_Administraci%C3%B3n_P%C3%BAblica.png"
+	      alt="Logotipo del Instituto Nacional de Administración Pública (INAP)"
+	    />
+	    <p><strong>Actividad para el INAP</strong></p>
+	  </div>
+	</div>
+  </footer>
+
+  <script>
+	// Smooth scrolling controlado por JavaScript para navegación interna.
+	const navLinks = document.querySelectorAll('a[href^="#"]');
+
+	navLinks.forEach((link) => {
+	  link.addEventListener('click', (event) => {
+		const targetId = link.getAttribute('href');
+		const target = document.querySelector(targetId);
+
+		if (!target) return;
+
+		event.preventDefault();
+		target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+	  });
+	});
+  </script>
+</body>
+</html>
+
